@@ -89,5 +89,7 @@ Now we have all the details of cars in excel file as figure below
 
 ![ScreenshotCarDetails](https://user-images.githubusercontent.com/45353233/205383760-c08dfb9e-7bb6-435e-a4fb-0350f0cd6bc4.png)
 
+### Feature Extraction
+After grabbing the data from the website, we have to extract most important features from that data.
 
 
