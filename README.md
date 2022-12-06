@@ -92,5 +92,7 @@ Now we have all the details of cars in excel file as figure below
 ### Feature Extraction
 After grabbing the data from the website, we have to extract most important features from that data.
 
+To take a broad overview of the data considered the excel file. There was nearly 120 columns. So more than dropping irrelevant data, It was easy to pick the most relevant data for data preperation.
 
+Considering most relavant data
 
