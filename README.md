@@ -94,5 +94,80 @@ After grabbing the data from the website, we have to extract most important feat
 
 To take a broad overview of the data considered the excel file. There was nearly 120 columns. So more than dropping irrelevant data, It was easy to pick the most relevant data for data preperation.
 
-Considering most relavant data
+Considering most relavant data, The data frame is initialized as DF1.
+```
+DF1 = DF[['registration_number','make','model_year','colour','fuel_type','transmission_type','body_type','engine_size','price','odometer_in_km','location.county']]
+DF1
+```
+![1](https://user-images.githubusercontent.com/45353233/205882597-39740e4f-cc07-47d2-8384-85f5850b2696.png)
+
+Considering registration_number column, there was some cars which has no registration number. So to identify the value of registration_number which has no registration number,
+
+```
+DF1['registration_number'].iloc[0]
+```
+![2](https://user-images.githubusercontent.com/45353233/205883244-fd8fed83-d463-44aa-824e-e1cafadf9cf3.png)
+
+It has shown no value. 
+So for the ease of data handling replaced all the values **''** to 0. And intialized the dataframe as DF2.
+
+```
+DF2 = DF1.replace('',0)
+```
+
+Then selected the cars which has not a 0 registration number and intialized it as DF3
+```
+DF3 = DF2[DF2['registration_number']!=0]
+```
+
+Now the registration numbers are in corrected format. Then considered about the 'make' column.
+Considering 'make' column, took a look at what are the values in make column. Considering that data there was no repetetion because of lower and upper cases.
+
+```
+DF3['make'].unique()
+```
+![3](https://user-images.githubusercontent.com/45353233/205885058-b6195171-64b3-4913-a9b7-fd95b40e78a4.png)
+
+Considering make column, made dummy columns which represent value 1 for each types. Then added that recreated dummy dataframe and dropped 'make' column.
+
+```
+DF4 = pd.get_dummies(DF3['make'])
+DF5 = DF3.drop('make',axis=1)
+DF6 = pd.concat([DF5, DF4], axis=1).reindex(DF5.index)
+```
+
+Considering color column, there was lower case and upper case issue.
+```
+DF3['colour'].unique()
+```
+![image](https://user-images.githubusercontent.com/45353233/205886525-7be7246d-ffb2-47e0-8820-f1d67f89a8bb.png)
+
+Even after solving that issue there was colors as WHITE and WHIT. Then had to replace WHIT as WHITE.
+Then created duumies as above and prepared as appropriate.
+
+```
+DF7 = DataFrame(DF6['colour'].str.upper()).replace('WHIT','WHITE')
+DF7['colour'].unique()
+DF8 = pd.get_dummies(DF7['colour']).drop('NONE',axis=1)
+DF9 = pd.concat([DF6, DF8], axis=1).reindex(DF6.index).drop('colour',axis=1)
+```
+
+Same as considering fuel_fuel type, data is converted into the encoded format.
+
+```
+DF10 = DataFrame(pd.get_dummies(DF9['fuel_type']))
+DF11 = pd.concat([DF9, DF10], axis=1).reindex(DF9.index).drop('fuel_type',axis=1)
+```
+
+There was two types of transmission type. So if considered about manual as 0, auotomatic will be 1. Considering that concept, created the data in to correct encoded format.
+
+```
+DF12 = DataFrame(pd.get_dummies(DF9['transmission_type']))
+DF13 = DF12.drop('Manual',axis=1)
+DF14 = pd.concat([DF11, DF13], axis=1).reindex(DF11.index).drop('transmission_type',axis=1)
+```
+
+
+
+
 
