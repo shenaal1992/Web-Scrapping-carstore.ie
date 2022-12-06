@@ -1,6 +1,9 @@
 # Creating a Data Preprocessing pipeline
 The main Task of this project is to create a develop a Data Acquisition and preprocessing Pipeline ,including data acquisition.
 
+The colab notebook file is here.
+'https://colab.research.google.com/drive/1e72ijLzfBjK0nF-Gw_OjAtaFNXQJb4dT#scrollTo=CWSQRVrUUJ7Z'
+
 ## Project Flow
 Project is devided into sub-catogeries as,
 1. Selecting a website.
@@ -177,10 +180,12 @@ DF18 = DF17.drop(0,axis=1)
 DF19 = pd.concat([DF16, DF18], axis=1).reindex(DF16.index).drop('location.county',axis=1)
 ```
 
-Considering the price coloumn there was some cars which has 0 price. Which means no price. So have to dop the cras which has no price as well. Then the final dataframe for the data preprocessing can be finalized.
+Considering the price coloumn there was some cars which has 0 price. Which means no price. So have to dop the cras which has no price as well. Then the final dataframe for the data preprocessing can be finalized and the data converted to excel format for overview.
 ```
 DF19 = pd.concat([DF16, DF18], axis=1).reindex(DF16.index).drop('location.county',axis=1)
 DF20 = (DF19[DF19['price']!=0])
 DF20.to_excel('cardata.xlsx')
 ```
+![4](https://user-images.githubusercontent.com/45353233/205891728-5b034cdd-d7b9-4d83-9678-a1fca1ac25b5.png)
+
 
