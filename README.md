@@ -167,7 +167,20 @@ DF13 = DF12.drop('Manual',axis=1)
 DF14 = pd.concat([DF11, DF13], axis=1).reindex(DF11.index).drop('transmission_type',axis=1)
 ```
 
+Same way data is convered for 'body_type' and cosidering location if the car is in Dublin,12 considered as 1 and if the car is outside the Dublin, 12 it is considered as 0.
 
+```
+DF15 = DataFrame(pd.get_dummies(DF9['body_type']))
+DF16 = pd.concat([DF14, DF15], axis=1).reindex(DF14.index).drop('body_type',axis=1)
+DF17 = DataFrame(pd.get_dummies(DF16['location.county']))
+DF18 = DF17.drop(0,axis=1)
+DF19 = pd.concat([DF16, DF18], axis=1).reindex(DF16.index).drop('location.county',axis=1)
+```
 
-
+Considering the price coloumn there was some cars which has 0 price. Which means no price. So have to dop the cras which has no price as well. Then the final dataframe for the data preprocessing can be finalized.
+```
+DF19 = pd.concat([DF16, DF18], axis=1).reindex(DF16.index).drop('location.county',axis=1)
+DF20 = (DF19[DF19['price']!=0])
+DF20.to_excel('cardata.xlsx')
+```
 
